@@ -121,3 +121,6 @@ removeItem i r =
     exits = exits r,
     objects = Data.List.delete i (objects r)
   }
+
+allRooms :: [Room]
+allRooms = rooms

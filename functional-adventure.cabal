@@ -15,6 +15,7 @@ library
   exposed-modules:
       Direction
       Example
+      GameState
       Item
       Player
       Room

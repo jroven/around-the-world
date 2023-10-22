@@ -1,13 +1,14 @@
 module Example where
 
-import Data.Map qualified as M
-import Data.List
 import System.Random
+import Data.List
+import qualified Data.Map as M
 
 import Item
 import Direction
 import Room
 import Player
+import GameState
 
 choose :: [a] -> IO a
 choose xs = do
@@ -75,3 +76,20 @@ instance Example Player where
 removeDuplicates :: Eq a => [a] -> [a]
 removeDuplicates [] = []
 removeDuplicates (x : xs) = x : removeDuplicates (filter (/= x) xs)
+
+instance Example GameState where
+  example :: IO GameState
+  example = do
+    msg <- choose [
+      Just "One possible message.",
+      Just "Yet another possible message.",
+      Nothing ]
+    gm <- exampleList (example :: IO Room) (randomRIO (2,3))
+    is <- exampleList (example :: IO Item) (randomRIO (5,10))
+    pl <- example :: IO Player
+    return GameState {
+      message = msg,
+      gmap = mkMap gm,
+      universe = mkUniverse is,
+      player = pl
+    }
