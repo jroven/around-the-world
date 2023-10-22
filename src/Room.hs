@@ -2,6 +2,7 @@ module Room where
 
 import Direction
 import Item
+import Data.List
 
 type RoomName = String
 
@@ -100,3 +101,23 @@ rooms =
     livingRoom,
     bedroom
   ]
+
+addItem :: ItemName -> Room -> Room
+addItem i r =
+  Room
+  {
+    rname = rname r,
+    desc = desc r,
+    exits = exits r,
+    objects = i : objects r
+  }
+
+removeItem :: ItemName -> Room -> Room
+removeItem i r =
+  Room
+  {
+    rname = rname r,
+    desc = desc r,
+    exits = exits r,
+    objects = Data.List.delete i (objects r)
+  }
