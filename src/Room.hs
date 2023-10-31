@@ -124,3 +124,6 @@ removeItem i r =
 
 allRooms :: [Room]
 allRooms = rooms
+
+hasObjects :: Room -> Bool
+hasObjects r = not $ null (objects r)
