@@ -165,7 +165,7 @@ anywhereDropCheck :: ItemName -> GameState -> Error GameState
 anywhereDropCheck i st =
   if elem i (currentInventory st) || elem i (nearbyObjects st)
     then Right st
-    else Left $ "What do you mean, drop the " ++ i ++ "?"
+    else Left $ "What do you mean, drop the \"" ++ i ++ "\"?"
 
 inRoomDropCheck :: ItemName -> GameState -> Error GameState
 inRoomDropCheck i st =
