@@ -1,10 +1,32 @@
 module Item where
 
 import Data.Map qualified as M
+import Data.Char
 
-type ItemName = String
+data ItemName
+  = Pot
+  | Jug
+  | Sandbag
+  | Stove
+  | Couch
+  | Tarragon
+  | Beans
+  | Grill
+  | Bed
+  deriving (Eq, Ord)
 
-type Universe = M.Map String Item
+instance Show ItemName where
+  show Pot = "pot"
+  show Jug = "jug"
+  show Sandbag = "sandbag"
+  show Stove = "stove"
+  show Couch = "couch"
+  show Tarragon = "tarragon"
+  show Beans = "beans"
+  show Grill = "grill"
+  show Bed = "bed"
+
+type Universe = M.Map ItemName Item
 
 data Item = Item {iname :: ItemName, weight :: Integer} deriving (Show)
 
@@ -17,31 +39,31 @@ mkUniverseHelper (x : xs) = ((iname x, x) : mkUniverseHelper xs)
 
 -- List of predefined Items
 pot :: Item
-pot = Item {iname = "pot", weight = 30}
+pot = Item {iname = Pot, weight = 30}
 
 jug :: Item
-jug = Item {iname = "jug", weight = 18}
+jug = Item {iname = Jug, weight = 18}
 
 sandbag :: Item
-sandbag = Item {iname = "sandbag", weight = 40}
+sandbag = Item {iname = Sandbag, weight = 40}
 
 stove :: Item
-stove = Item {iname = "stove", weight = 2000}
+stove = Item {iname = Stove, weight = 2000}
 
 couch :: Item
-couch = Item {iname = "couch", weight = 2500}
+couch = Item {iname = Couch, weight = 2500}
 
 tarragon :: Item
-tarragon = Item {iname = "tarragon", weight = 1}
+tarragon = Item {iname = Tarragon, weight = 1}
 
 beans :: Item
-beans = Item {iname = "beans", weight = 6}
+beans = Item {iname = Beans, weight = 6}
 
 grill :: Item
-grill = Item {iname = "grill", weight = 2000}
+grill = Item {iname = Grill, weight = 2000}
 
 bed :: Item
-bed = Item {iname = "bed", weight = 3500}
+bed = Item {iname = Bed, weight = 3500}
 
 -- Universe
 univ :: Universe

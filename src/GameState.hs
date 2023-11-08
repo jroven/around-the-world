@@ -93,7 +93,7 @@ takeItem i st =
     Left str -> setMessage str st
     Right newState ->
       setMessage
-      ("You take the " ++ i ++ ".")
+      ("You take the " ++ show i ++ ".")
       GameState
       {
         message = Nothing,
@@ -105,7 +105,7 @@ takeItem i st =
         universe = universe st,
         player = Player.addItem i $ player st
       }
-    
+
 takeItemHelper :: ItemName -> GameState -> Error GameState
 takeItemHelper i st = do
   alreadyHave <- alreadyHaveTakeCheck i st
@@ -119,7 +119,7 @@ dropItem i st =
     Left str -> setMessage str st
     Right newState ->
       setMessage
-      ("You drop the " ++ i ++ ".")
+      ("You drop the " ++ show i ++ ".")
       GameState
       {
         message = Nothing,
@@ -146,14 +146,14 @@ inventoryWeight st = item_sum (inventory $ player st) st where
 alreadyHaveTakeCheck :: ItemName -> GameState -> Error GameState
 alreadyHaveTakeCheck i st =
   if elem i $ currentInventory st
-    then Left $ "You are already carrying the " ++ i ++ "."
+    then Left $ "You are already carrying the " ++ show i ++ "."
     else Right st
 
 inRoomTakeCheck :: ItemName -> GameState -> Error GameState
 inRoomTakeCheck i st =
   if elem i $ nearbyObjects st
     then Right st
-    else Left $ "There is no " ++ i ++ " in this room."
+    else Left $ "There is no " ++ show i ++ " in this room."
 
 weightCheck :: ItemName -> GameState -> Error GameState
 weightCheck i st =
@@ -165,12 +165,12 @@ anywhereDropCheck :: ItemName -> GameState -> Error GameState
 anywhereDropCheck i st =
   if elem i (currentInventory st) || elem i (nearbyObjects st)
     then Right st
-    else Left $ "What do you mean, drop the \"" ++ i ++ "\"?"
+    else Left $ "What do you mean, drop the \"" ++ show i ++ "\"?"
 
 inRoomDropCheck :: ItemName -> GameState -> Error GameState
 inRoomDropCheck i st =
   if elem i $ nearbyObjects st
-    then Left $ "You aren't carrying the " ++ i ++ "."
+    then Left $ "You aren't carrying the " ++ show i ++ "."
     else Right st
 
 roomHasObjects :: GameState -> Bool
@@ -198,4 +198,4 @@ move d st =
 haveWonGame :: GameState -> Bool
 haveWonGame st =
   let p = player st
-  in location p == "yard" && elem "jug" (inventory p)
+  in location p == Yard && elem Jug (inventory p)

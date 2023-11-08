@@ -33,5 +33,5 @@ you =
   Player
     { inventory = [],
       maxWeight = 100,
-      location = "kitchen"
+      location = Kitchen
     }

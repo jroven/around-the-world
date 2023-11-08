@@ -56,7 +56,7 @@ instance Example Room where
     objects <- exampleList (choose itemNames) (randomRIO (2,5))
     return Room {
       rname = r,
-      desc = "You are in the " ++ r ++ ".  It is a randomly-generated room.",
+      desc = "You are in the " ++ show r ++ ".  It is a randomly-generated room.",
       exits = exits,
       objects = objects
     }

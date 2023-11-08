@@ -4,7 +4,20 @@ import Direction
 import Item
 import Data.List
 
-type RoomName = String
+data RoomName
+  = Kitchen
+  | Pantry
+  | Yard
+  | LivingRoom
+  | Bedroom
+  deriving (Eq, Ord)
+
+instance Show RoomName where
+  show Kitchen = "kitchen"
+  show Pantry = "pantry"
+  show Yard = "yard"
+  show LivingRoom = "living room"
+  show Bedroom = "bedroom"
 
 type Exit = (Direction, RoomName)
 
@@ -20,72 +33,72 @@ data Room = Room
 kitchen :: Room
 kitchen =
   Room
-    { rname = "kitchen",
+    { rname = Kitchen,
       desc = "You are in a small kitchen.",
       exits =
-        [ (N, "living room"),
-          (S, "yard"),
-          (E, "pantry")
+        [ (N, LivingRoom),
+          (S, Yard),
+          (E, Pantry)
         ],
       objects =
-        [ "pot",
-          "stove"
+        [ Pot,
+          Stove
         ]
     }
 
 pantry :: Room
 pantry =
   Room
-    { rname = "pantry",
+    { rname = Pantry,
       desc = "You are in a pantry.",
       exits =
-        [ (W, "kitchen")
+        [ (W, Kitchen)
         ],
       objects =
-        [ "tarragon",
-          "beans"
+        [ Tarragon,
+          Beans
         ]
     }
 
 yard :: Room
 yard =
   Room
-    { rname = "yard",
+    { rname = Yard,
       desc = "You are in a small yard.",
       exits =
-        [ (N, "kitchen")
+        [ (N, Kitchen)
         ],
       objects =
-        [ "grill"
+        [ Grill
         ]
     }
 
 livingRoom :: Room
 livingRoom =
   Room
-    { rname = "living room",
+    { rname = LivingRoom,
       desc = "You are in a small living room.",
       exits =
-        [ (N, "bedroom"),
-          (S, "kitchen")
+        [ (N, Bedroom),
+          (S, Kitchen)
         ],
       objects =
-        [ "couch",
-          "jug",
-          "sandbag"
+        [ Couch,
+          Jug,
+          Sandbag
         ]
     }
 
 bedroom :: Room
 bedroom =
   Room
-    { rname = "bedroom",
+    { rname = Bedroom,
       desc = "You are in a small bedroom.",
       exits =
-        [ (S, "living room")
+        [ (S, LivingRoom)
         ],
       objects =
-        [ "bed"
+        [ Bed
         ]
     }
 
