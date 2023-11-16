@@ -33,7 +33,7 @@ many = P.many . try
 many1 :: Parser a -> Parser [a]
 many1 = P.many1 . try
 
-parse :: Parser a -> String -> Either ParseError a 
+parse :: Parser a -> String -> Either ParseError a
 parse prsr = P.parse prsr ""
 
 data Command
@@ -86,3 +86,9 @@ commandP = choice [inventoryP, takeP, exitP, dropP, lookP, moveP]
 
 conjunctionP :: Parser Conjunction
 conjunctionP = sepBy1 commandP (string " and ") <* eof
+
+parseInput :: String -> Maybe Conjunction
+parseInput str =
+  case parse conjunctionP str of
+    Right conj -> Just conj
+    _ -> Nothing
