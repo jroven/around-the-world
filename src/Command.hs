@@ -52,11 +52,11 @@ itemNameP =
   let eachItemName inm = pure inm <* string (show inm)
   in choice (map eachItemName itemNames)
 
-nounPhrase_stub :: Parser [ItemName]
-nounPhrase_stub = pure (\x -> [x]) <*> itemNameP
+nounPhrase_stub :: Parser ItemName
+nounPhrase_stub = id <$> itemNameP
 
 nounPhrase :: Parser [ItemName]
-nounPhrase = nounPhrase_stub
+nounPhrase = sepBy1 (optional (char ' ') *> nounPhrase_stub) (char ',')
 
 inventoryP :: Parser Command
 inventoryP = pure Inventory <* string "inventory"
