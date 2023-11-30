@@ -30,6 +30,7 @@ dependencies:
 - containers
 - random
 - parsec
+- mtl
 
 library:
   source-dirs: src
