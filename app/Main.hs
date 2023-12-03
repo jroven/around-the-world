@@ -1,6 +1,16 @@
 module Main where
 
-import qualified Data.Map as M
+import Control.Monad.State
+
+import GameState
+import GameIO
+
+foreverRepl :: GameState -> IO ()
+foreverRepl state = do
+    newstate <- execStateT repl state
+    foreverRepl newstate
 
 main :: IO ()
-main = putStrLn "Hello Functional Adventure!"
+main = do
+    evalStateT opening initialState
+    foreverRepl initialState
