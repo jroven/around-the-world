@@ -19,6 +19,7 @@ library
       GameIO
       GameState
       Item
+      NPC
       Player
       Room
   other-modules:

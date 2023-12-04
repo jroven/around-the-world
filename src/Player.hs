@@ -12,7 +12,7 @@ data Player = Player
   deriving (Show, Eq)
 
 addItem :: ItemName -> Player -> Player
-addItem i p = Player (i : (inventory p)) (maxWeight p) (location p)
+addItem i p = Player (i : inventory p) (maxWeight p) (location p)
 
 removeItem :: ItemName -> Player -> Player
 removeItem i p =
@@ -31,7 +31,7 @@ isCarryingAnything p = inventory p /= []
 you :: Player
 you =
   Player
-    { inventory = [],
+    { inventory = [Homework],
       maxWeight = 100,
-      location = Kitchen
+      location = Bedroom
     }

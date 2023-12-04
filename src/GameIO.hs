@@ -1,5 +1,6 @@
 module GameIO where
 
+import System.Random
 import Control.Monad.State
 import System.Exit
 import System.IO
@@ -9,6 +10,8 @@ import Player
 import Room
 import Command
 import Item
+import NPC
+import Direction
 
 type GameIO a = StateT GameState IO a
 
@@ -50,7 +53,7 @@ printObjectsHelper xs = do
 printObjectsRecurse :: (Monad (t IO), MonadTrans t) => [ItemName] -> t IO ()
 printObjectsRecurse xs = do
     case xs of
-        [] -> pure()
+        [] -> pure ()
         (i : is) -> do
             lift (putStrLn (show i))
             printObjectsRecurse is
@@ -58,7 +61,7 @@ printObjectsRecurse xs = do
 printExits :: GameIO ()
 printExits = do
     state <- get
-    case exits (currentRoom state) of
+    case normalExits (currentRoom state) of
         [] -> pure ()
         xs -> printExitsHelper xs
 
@@ -70,7 +73,7 @@ printExitsHelper xs = do
 -- Another helper for printExits
 printExitsRecurse xs = do
     case xs of
-        [] -> pure()
+        [] -> pure ()
         (e : es) -> do
             lift (putStrLn (show (fst e)))
             printExitsRecurse es
@@ -153,11 +156,14 @@ performCommand com = do
             actionOverList dropItem xs
         Exit -> do
             exit
+    checkChangeMap
+    removeUsedObjects
 
 performConjunction :: Conjunction -> GameIO ()
 performConjunction conj = do
     case conj of
-        [] -> pure ()
+        [] -> do
+            npcRandomMove csprof
         (c : cs) -> do
             performCommand c
             performConjunction cs
@@ -166,7 +172,8 @@ parseConjunction :: String -> GameIO ()
 parseConjunction str = do
     case parseInput str of
         Nothing -> syntaxError
-        Just conj -> performConjunction conj
+        Just conj -> do
+            performConjunction conj
 
 repl :: GameIO ()
 repl = do
@@ -174,3 +181,63 @@ repl = do
     str <- lift getLine
     parseConjunction str
     checkGameOver
+
+removeUsedObjects :: GameIO ()
+removeUsedObjects = do
+    state <- get
+    when (currentRoom state == lhrGate
+          &&
+          elem LondonPlaneTicket (currentInventory state))
+            (lift $ pure ()) -- FIX THIS TO ACTUALLY MAKE IT REMOVE TICKET
+
+checkChangeMap :: GameIO ()
+checkChangeMap = do
+    state <- get
+    when (currentRoom state == yardTaxi
+          &&
+          elem LondonPlaneTicket (currentInventory state))
+            (performCommand $ Move ORD)
+    when (currentRoom state == ordPlane
+          &&
+          elem LondonPlaneTicket (currentInventory state))
+            (performCommand $ Move LHRfly)
+    when (currentRoom state == lhrTrain
+          &&
+          elem LondonTubeTicket (currentInventory state))
+            (performCommand $ Move LondonDowntown)
+    when (currentRoom state == lonWestminsterTubeStation
+          &&
+          elem LondonReturnTubeTicket (currentInventory state))
+            (performCommand $ Move LHRreturn)
+    when (currentRoom state == lhrPlane
+          &&
+          elem AmsterdamPlaneTicket (currentInventory state))
+            (performCommand $ Move LHRAMS)
+
+choose :: [a] -> IO a
+choose xs = do
+  index <- randomRIO (0, length xs - 1)
+  return $ xs !! index
+
+npcRandomMove :: NPC -> GameIO ()
+npcRandomMove npc = do
+    st <- get
+    exit <- lift $ choose $ exits $ getRoom (npcLocation npc) st
+    st <- pure $ npcMove npc (fst exit) st
+    pure ()
+
+npcItemCheck :: NPC -> ItemName -> GameIO () -> GameIO ()
+npcItemCheck npc i action = do
+    st <- get
+    if npcLocationCheck npc st && elem i (objects $ currentRoom st)
+        then action
+        else lift $ putStrLn "not there (TEST)"
+
+npcLocationCheck :: NPC -> GameState -> Bool
+npcLocationCheck npc st = currentRoom st == getRoom (npcLocation npc) st
+
+csprofHint :: GameIO ()
+csprofHint = do
+    lift $ putStrLn "You see a CS professor."
+    lift $ putStrLn
+          "The CS professor says, \"Have you turned in your homework yet?\""

@@ -1,12 +1,14 @@
 module GameState where
 
 import Data.List
+import Data.Maybe
 import Control.Exception
 import qualified Data.Map as M
 
 import Item
 import Room
 import Player
+import NPC
 import Direction
 
 type GameMap = M.Map RoomName Room
@@ -17,7 +19,8 @@ data GameState = GameState
   { message :: Maybe String,
     gmap :: GameMap,
     universe :: Universe,
-    player :: Player
+    player :: Player,
+    npcs :: [NPC]
   }
   deriving Show
 
@@ -29,7 +32,7 @@ mkMapHelper [] = []
 mkMapHelper (x : xs) = ((rname x, x) : mkMapHelper xs)
 
 gameMap :: GameMap
-gameMap = mkMap allRooms
+gameMap = mkMap rooms
 
 initialState :: GameState
 initialState =
@@ -38,7 +41,8 @@ initialState =
         message = Nothing,
         gmap = gameMap,
         universe = univ,
-        player = you
+        player = you,
+        npcs = [csprof]
     }
 
 data KeyError = KeyError
@@ -75,7 +79,8 @@ setMessage s st =
         message = Just s,
         gmap = gmap st,
         universe = universe st,
-        player = player st
+        player = player st,
+        npcs = npcs st
     }
 
 currentInventory :: GameState -> [ItemName]
@@ -103,7 +108,8 @@ takeItem i st =
             (Room.removeItem i $ currentRoom st)
             (gmap st),
         universe = universe st,
-        player = Player.addItem i $ player st
+        player = Player.addItem i $ player st,
+        npcs = npcs st
       }
 
 takeItemHelper :: ItemName -> GameState -> Error GameState
@@ -129,7 +135,8 @@ dropItem i st =
             (Room.addItem i $ currentRoom st)
             (gmap st),
         universe = universe st,
-        player = Player.removeItem i $ player st
+        player = Player.removeItem i $ player st,
+        npcs = npcs st
       }
 
 dropItemHelper :: ItemName -> GameState -> Error GameState
@@ -183,12 +190,25 @@ destinationName d r = destinationNameHelper d $ exits r where
   destinationNameHelper d (exit : exits) =
     if fst exit == d then Just (snd exit) else destinationNameHelper d exits
 
+moveMessage :: Direction -> String
+moveMessage d =
+  if elem d [N, S, E, W]
+    then "You go " ++ show d ++ "."
+    else case d of
+      ORD -> "You take a taxi to the airport."
+      HydePark -> "You take a taxi back to Hyde Park."
+      LHRfly -> "You fly to London."
+      LondonDowntown -> "You take the London Underground downtown."
+      LHRreturn -> "You take the London Underground back to the airport."
+      LHRAMS -> "You fly to Amsterdam."
+      _ -> ""
+
 move :: Direction -> GameState -> GameState
 move d st =
   case destinationName d (currentRoom st) of
     Just r ->
       setMessage
-      ("You go " ++ show d ++ ".")
+      (moveMessage d)
       st { player = (player st) { location = r } }
     Nothing ->
       setMessage
@@ -198,4 +218,16 @@ move d st =
 haveWonGame :: GameState -> Bool
 haveWonGame st =
   let p = player st
-  in location p == Yard && elem Jug (inventory p)
+  in location p == Backyard && elem Homework (inventory p)
+
+npcMove :: NPC -> Direction -> GameState -> GameState
+npcMove npc d st =
+  case destinationName d (getRoom (npcLocation npc) st) of
+    Just r ->
+      setMessage
+      ""
+      st { npcs = (npc { npcLocation = r } ) : delete npc (npcs st) }
+    Nothing ->
+      setMessage
+      ""
+      st
