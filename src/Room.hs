@@ -98,6 +98,87 @@ data RoomName
   | AmsterdamVondelpark
   | AmsterdamHeinekenExperience
   | AmsterdamVanGoghMuseum
+
+  -- CDG
+  | CdgPlane
+  | CdgGate
+  | CdgCustoms
+  | CdgSecurity
+  | CdgLobby
+  | CdgAirportStation
+  | CdgTrain
+
+  -- Paris
+  | ParGareDuNord
+  | ParSacreCoeur
+  | ParMoulinRouge
+  | ParPalaisGarnier
+  | ParPalaisRoyal
+  | ParLouvre
+  | ParPlaceDeLaConcorde
+  | ParArcDeTriomphe
+  | ParPlaceDesVosges
+  | ParNotreDame
+  | ParSainteChapelle
+  | ParHotelDesInvalides
+  | ParEiffelTower
+  | ParPantheon
+  | ParMontparnasseTower
+  | ParCatacombs
+
+  -- PRG
+  | PrgPlane
+  | PrgGate
+  | PrgCustoms
+  | PrgSecurity
+  | PrgLobby
+  | PrgAirportStation
+  | PrgTrain
+
+  -- Prague
+  | PraMainStation
+  | PraSpanishSynagogue
+  | PraOldJewishCemetary
+  | PraPowderGate
+  | PraTynChurch
+  | PraHouseOfArts
+  | PraNationalMuseum
+  | PraAstronomicalClock
+  | PraCharlesBridge
+  | PraChurchOfStNicholas
+  | PraPragueCastle
+  | PraNationalTheatre
+  | PraLennonWall
+  | PraPetrinTower
+  | PraStrahovMonastery
+  | PraDancingHouse
+
+  -- IST
+  | IstPlane
+  | IstGate
+  | IstCustoms
+  | IstSecurity
+  | IstLobby
+  | IstLoadingZone
+  | IstTaxi
+
+  -- Istanbul
+  | IstanbulTaxi
+  | IstanbulSerpentineColumn
+  | IstanbulSpiceBazaar
+  | IstanbulGrandBazaar
+  | IstanbulHippodromeSquare
+  | IstanbulObeliskOfTheodesius
+  | IstanbulIstiklalAvenue
+  | IstanbulTurkishAndIslamicArtMuseum
+  | IstanbulBlueMosque
+  | IstanbulBogaziciUniversity
+  | IstanbulTaksimSquare
+  | IstanbulGalataTower
+  | IstanbulTopkapiPalace
+  | IstanbulHagiaSophia
+  | IstanbulOrtakoySquare
+  | IstanbulDolmabahcePalace
   deriving (Eq, Ord)
 
 instance Show RoomName where
@@ -119,7 +200,7 @@ instance Show RoomName where
   show MaxPEast = "Max Palevsky East"
   show BreakupForest = "breakup forest"
   show MaxPCentral = "Max Palevsky Central"
-  show MaxPWest = "Max Palevsky"
+  show MaxPWest = "Max Palevsky West"
   show UniversityChurch = "university church"
   show Bartlett = "Bartlett"
   show Regenstein = "Regenstein"
@@ -195,6 +276,87 @@ instance Show RoomName where
   show AmsterdamHeinekenExperience = "Heineken Experience"
   show AmsterdamVanGoghMuseum = "Van Gogh Museum"
 
+  -- CDG
+  show CdgPlane = "CDG Plane"
+  show CdgGate = "CDG Gate"
+  show CdgCustoms = "CDG Customs"
+  show CdgSecurity = "CDG Security"
+  show CdgLobby = "CDG Lobby"
+  show CdgAirportStation = "CDG Airport Station"
+  show CdgTrain = "CDG Train"
+
+  -- Paris
+  show ParGareDuNord = "Gare du Nord station"
+  show ParSacreCoeur = "Sacré Cœur"
+  show ParMoulinRouge = "Moulin Rouge"
+  show ParPalaisGarnier = "Palais Garnier"
+  show ParPalaisRoyal = "Palais Royal"
+  show ParLouvre = "Louvre"
+  show ParPlaceDeLaConcorde = "Place de la Concorde"
+  show ParArcDeTriomphe = "Arc de Triomphe"
+  show ParPlaceDesVosges = "Place des Vosges"
+  show ParNotreDame = "Notre Dame"
+  show ParSainteChapelle = "Sainte-Chapelle"
+  show ParHotelDesInvalides = "Hôtel des Invalides"
+  show ParEiffelTower = "Eiffel Tower"
+  show ParPantheon = "Pantheon"
+  show ParMontparnasseTower = "Montparnasse Tower"
+  show ParCatacombs = "catacombs"
+
+  -- PRG
+  show PrgPlane = "PRG Plane"
+  show PrgGate = "PRG Gate"
+  show PrgCustoms = "PRG Customs"
+  show PrgSecurity = "PRG Security"
+  show PrgLobby = "PRG Lobby"
+  show PrgAirportStation = "PRG Airport Station"
+  show PrgTrain = "PRG Train"
+
+  -- Prague
+  show PraMainStation = "Prague main station"
+  show PraSpanishSynagogue = "Spanish Synagogue"
+  show PraOldJewishCemetary = "old Jewish cemetary"
+  show PraPowderGate = "powder gate"
+  show PraTynChurch = "Týn Church"
+  show PraHouseOfArts = "house of arts"
+  show PraNationalMuseum = "Prague national museum"
+  show PraAstronomicalClock = "astronomical clock"
+  show PraCharlesBridge = "Charles Bridge"
+  show PraChurchOfStNicholas = "Church of St Nicholas"
+  show PraPragueCastle = "Prague Castle"
+  show PraNationalTheatre = "Prague national theatre"
+  show PraLennonWall = "Lennon Wall"
+  show PraPetrinTower = "Petřín Tower"
+  show PraStrahovMonastery = "Strahov Monastery"
+  show PraDancingHouse = "dancing house"
+
+  -- IST
+  show IstPlane = "IST Plane"
+  show IstGate = "IST Gate"
+  show IstCustoms = "IST Customs"
+  show IstSecurity = "IST Security"
+  show IstLobby = "IST Lobby"
+  show IstLoadingZone = "IST Loading Zone"
+  show IstTaxi = "IST Taxi"
+
+  -- Istanbul
+  show IstanbulTaxi = "Istanbul taxi"
+  show IstanbulSerpentineColumn = "Serpentine Column"
+  show IstanbulSpiceBazaar = "Spice Bazaar"
+  show IstanbulGrandBazaar = "Grand Bazaar"
+  show IstanbulHippodromeSquare = "Hippodrome Square"
+  show IstanbulObeliskOfTheodesius = "Obelisk of Theodesius"
+  show IstanbulIstiklalAvenue = "İstiklal Avenue"
+  show IstanbulTurkishAndIslamicArtMuseum = "Turkish and Islamic Art Museum"
+  show IstanbulBlueMosque = "Blue Mosque"
+  show IstanbulBogaziciUniversity = "Boğaziçi University"
+  show IstanbulTaksimSquare = "Taksim Square"
+  show IstanbulGalataTower = "Galata Tower"
+  show IstanbulTopkapiPalace = "Topkapı Palace"
+  show IstanbulHagiaSophia = "Hagia Sophia"
+  show IstanbulOrtakoySquare = "Ortaköy Square"
+  show IstanbulDolmabahcePalace = "Dolmabahçe Palace"
+
 type Exit = (Direction, RoomName)
 
 data Room = Room
@@ -252,7 +414,7 @@ livingRoom =
           (W, Kitchen)
         ],
       objects =
-        [
+        [ Lamp
         ]
     }
 
@@ -279,7 +441,9 @@ walkInCloset =
         [ (W, Bedroom)
         ],
       objects =
-        [
+        [ TShirt,
+          Jeans,
+          Suit
         ]
     }
 
@@ -292,7 +456,7 @@ bathroom =
         [ (W, LivingRoom)
         ],
       objects =
-        [
+        [ ToiletPaper
         ]
     }
 
@@ -321,7 +485,7 @@ frontYard =
           (W, YardTaxi)
         ],
       objects =
-        [ LondonPlaneTicket
+        [
         ]
     }
 
@@ -393,7 +557,7 @@ insomnia =
           (W, Ratner)
         ],
       objects =
-        [
+        [ Cookie
         ]
     }
 
@@ -407,7 +571,7 @@ ratner =
           (E, Insomnia)
         ],
       objects =
-        [
+        [ Dumbbell
         ]
     }
 
@@ -497,7 +661,7 @@ bartlett =
           (W, Regenstein)
         ],
       objects =
-        [
+        [ CafeteriaFood
         ]
     }
 
@@ -512,7 +676,8 @@ regenstein =
           (W, Mansueto)
         ],
       objects =
-        [
+        [ SmallBook,
+          BigBook
         ]
     }
 
@@ -630,7 +795,7 @@ harperQuad =
           (W, Cobb)
         ],
       objects =
-        [
+        [ Bike
         ]
     }
 
@@ -717,7 +882,7 @@ ordBurgerRestaurant =
           (W, OrdLounge)
         ],
       objects =
-        [
+        [ Burger
         ]
     }
 
@@ -744,7 +909,7 @@ ordCoffeeShop =
           (W, OrdInternationalTerminal)
         ],
       objects =
-        [
+        [ Coffee
         ]
     }
 
@@ -919,7 +1084,9 @@ lonRoyalBotanicGardens =
           (E, LonHousesOfParliament)
         ],
       objects =
-        [
+        [ Rose,
+          Azalea,
+          LondonReturnTubeTicket
         ]
     }
 
@@ -990,7 +1157,7 @@ lonSkyGarden =
           (W, LonStPaulsCathedral)
         ],
       objects =
-        [
+        [ TeaSet
         ]
     }
 
@@ -1019,7 +1186,7 @@ lonFilmMuseum =
           (W, LonTrafalgarSquare)
         ],
       objects =
-        [
+        [ ShrekDVD
         ]
     }
 
@@ -1035,7 +1202,7 @@ lonTrafalgarSquare =
           (W, LonMadameTussauds)
         ],
       objects =
-        [ LondonReturnTubeTicket
+        [ Trash
         ]
     }
 
@@ -1049,7 +1216,7 @@ lonZoo =
           (W, LonRegentsPark)
         ],
       objects =
-        [
+        [ WaterBottle
         ]
     }
 
@@ -1063,7 +1230,8 @@ lonRegentsPark =
           (E, LonZoo)
         ],
       objects =
-        [
+        [ Tulip,
+          Daffodil
         ]
     }
 
@@ -1077,7 +1245,8 @@ lonMadameTussauds =
           (E, LonTrafalgarSquare)
         ],
       objects =
-        [ AmsterdamPlaneTicket
+        [ AmsterdamPlaneTicket,
+          Wax
         ]
     }
 
@@ -1089,7 +1258,8 @@ amsPlane =
     { rname = AmsPlane,
       desc = "You are on an airplane.",
       exits =
-        [ (S, AmsGate)
+        [ (S, AmsGate),
+          (AMSCDG, CdgGate)
         ],
       objects =
         [
@@ -1162,7 +1332,7 @@ amsAirportStation =
           (S, AmsTrain)
         ],
       objects =
-        [ 
+        [ AmsterdamTrainTicket
         ]
     }
 
@@ -1172,7 +1342,8 @@ amsTrain =
     { rname = AmsTrain,
       desc = "You are in a train.",
       exits =
-        [ (N, AmsAirportStation)
+        [ (N, AmsAirportStation),
+          (AmsterdamDowntown, AmsterdamCentraalStation)
         ],
       objects =
         [
@@ -1189,7 +1360,8 @@ amsterdamCentraalStation =
       exits =
         [ (S, AmsterdamOldChurch),
           (E, AmsterdamNemoScienceMuseum),
-          (W, AmsterdamAnneFrankHouse)
+          (W, AmsterdamAnneFrankHouse),
+          (AMSreturn, AmsAirportStation)
         ],
       objects =
         [
@@ -1262,7 +1434,7 @@ amsterdamOosterpark =
         [ (W, AmsterdamHortusBotanicus)
         ],
       objects =
-        [
+        [ AmsterdamReturnTrainTicket
         ]
     }
 
@@ -1276,7 +1448,8 @@ amsterdamHortusBotanicus =
           (W, AmsterdamRembrandtHouse)
         ],
       objects =
-        [
+        [ Bush,
+          Leaf
         ]
     }
 
@@ -1291,7 +1464,7 @@ amsterdamRembrandtHouse =
           (W, AmsterdamMuseum)
         ],
       objects =
-        [
+        [ BigPainting
         ]
     }
 
@@ -1320,7 +1493,7 @@ amsterdamHuisMarseille =
         [ (E, AmsterdamMuseum)
         ],
       objects =
-        [
+        [ Camera
         ]
     }
 
@@ -1335,7 +1508,7 @@ amsterdamFlowerMarket =
           (W, AmsterdamRijksmuseum)
         ],
       objects =
-        [
+        [ Stroopwafel
         ]
     }
 
@@ -1350,7 +1523,7 @@ amsterdamRijksmuseum =
           (W, AmsterdamVondelpark)
         ],
       objects =
-        [
+        [ Statue
         ]
     }
 
@@ -1363,7 +1536,7 @@ amsterdamVondelpark =
         [ (E, AmsterdamRijksmuseum)
         ],
       objects =
-        [
+        [ ParisPlaneTicket
         ]
     }
 
@@ -1376,7 +1549,7 @@ amsterdamHeinekenExperience =
         [ (N, AmsterdamFlowerMarket)
         ],
       objects =
-        [
+        [ Beer
         ]
     }
 
@@ -1389,9 +1562,1010 @@ amsterdamVanGoghMuseum =
         [ (N, AmsterdamRijksmuseum)
         ],
       objects =
+        [ SmallPainting
+        ]
+    }
+
+-- CDG
+  
+cdgPlane :: Room
+cdgPlane =
+  Room
+    { rname = CdgPlane,
+      desc = "You are on an airplane.",
+      exits =
+        [ (W, CdgGate),
+          (CDGPRG, PrgGate)
+        ],
+      objects =
         [
         ]
     }
+
+cdgGate :: Room
+cdgGate =
+  Room
+    { rname = CdgGate,
+      desc = "You are at the gate in the airport.",
+      exits =
+        [ (E, CdgPlane),
+          (W, CdgCustoms)
+        ],
+      objects =
+        [
+        ]
+    }
+
+cdgCustoms :: Room
+cdgCustoms =
+  Room
+    { rname = CdgCustoms,
+      desc = "You are going through French customs at the airport.",
+      exits =
+        [ (E, CdgGate),
+          (W, CdgSecurity)
+        ],
+      objects =
+        [
+        ]
+    }
+
+cdgSecurity :: Room
+cdgSecurity =
+  Room
+    { rname = CdgSecurity,
+      desc = "You are in airport security.",
+      exits =
+        [ (E, CdgCustoms),
+          (W, CdgLobby)
+        ],
+      objects =
+        [
+        ]
+    }
+
+cdgLobby :: Room
+cdgLobby =
+  Room
+    { rname = CdgLobby,
+      desc = "You are in the airport lobby.",
+      exits =
+        [ (E, CdgSecurity),
+          (W, CdgAirportStation)
+        ],
+      objects =
+        [
+        ]
+    }
+
+cdgAirportStation :: Room
+cdgAirportStation =
+  Room
+    { rname = CdgAirportStation,
+      desc = "You are in the airport train station.",
+      exits =
+        [ (E, CdgLobby),
+          (W, CdgTrain)
+        ],
+      objects =
+        [ ParisTrainTicket
+        ]
+    }
+
+cdgTrain :: Room
+cdgTrain =
+  Room
+    { rname = CdgTrain,
+      desc = "You are in a train.",
+      exits =
+        [ (E, CdgAirportStation),
+          (ParisDowntown, ParGareDuNord)
+        ],
+      objects =
+        [
+        ]
+    }
+
+-- Paris
+
+parGareDuNord :: Room
+parGareDuNord =
+  Room
+    { rname = ParGareDuNord,
+      desc = "You are in the Gare du Nord train station.",
+      exits =
+        [ (N, ParSacreCoeur),
+          (S, ParLouvre),
+          (W, ParPalaisGarnier),
+          (CDGreturn, CdgAirportStation)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parSacreCoeur :: Room
+parSacreCoeur =
+  Room
+    { rname = ParSacreCoeur,
+      desc = "You are in front of the Basilica of Sacré Cœur.",
+      exits =
+        [ (S, ParGareDuNord)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parMoulinRouge :: Room
+parMoulinRouge =
+  Room
+    { rname = ParMoulinRouge,
+      desc = "You are in front of the Moulin Rouge cabaret.",
+      exits =
+        [ (S, ParPalaisGarnier)
+        ],
+      objects =
+        [ Croissant
+        ]
+    }
+
+parPalaisGarnier :: Room
+parPalaisGarnier =
+  Room
+    { rname = ParPalaisGarnier,
+      desc = "You are in front of the Palais Garnier opera house.",
+      exits =
+        [ (N, ParMoulinRouge),
+          (S, ParPlaceDeLaConcorde),
+          (E, ParGareDuNord)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parPalaisRoyal :: Room
+parPalaisRoyal =
+  Room
+    { rname = ParPalaisRoyal,
+      desc = "You are in front of the Palais-Royal.",
+      exits =
+        [ (S, ParSainteChapelle),
+          (W, ParLouvre)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parLouvre :: Room
+parLouvre =
+  Room
+    { rname = ParLouvre,
+      desc = "You are in front of the Louvre museum.",
+      exits =
+        [ (N, ParGareDuNord),
+          (E, ParPalaisRoyal),
+          (W, ParPlaceDeLaConcorde)
+        ],
+      objects =
+        [ MonaLisa
+        ]
+    }
+
+parPlaceDeLaConcorde :: Room
+parPlaceDeLaConcorde =
+  Room
+    { rname = ParPlaceDeLaConcorde,
+      desc = "You are in Place de la Concorde.",
+      exits =
+        [ (N, ParPalaisGarnier),
+          (S, ParHotelDesInvalides),
+          (E, ParLouvre),
+          (W, ParArcDeTriomphe)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parArcDeTriomphe :: Room
+parArcDeTriomphe =
+  Room
+    { rname = ParArcDeTriomphe,
+      desc = "You are in front of the Arc de Triomphe.",
+      exits =
+        [ (S, ParEiffelTower),
+          (E, ParPlaceDeLaConcorde)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parPlaceDesVosges :: Room
+parPlaceDesVosges =
+  Room
+    { rname = ParPlaceDesVosges,
+      desc = "You are in Place des Vosges.",
+      exits =
+        [ (W, ParNotreDame)
+        ],
+      objects =
+        [ ParisReturnTrainTicket
+        ]
+    }
+
+parNotreDame :: Room
+parNotreDame =
+  Room
+    { rname = ParNotreDame,
+      desc = "You are in front of Notre-Dame de Paris cathedral.",
+      exits =
+        [ (E, ParPlaceDesVosges),
+          (W, ParSainteChapelle)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parSainteChapelle :: Room
+parSainteChapelle =
+  Room
+    { rname = ParSainteChapelle,
+      desc = "You are in front of the Sainte-Chapelle.",
+      exits =
+        [ (N, ParPalaisRoyal),
+          (S, ParPantheon),
+          (E, ParNotreDame)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parHotelDesInvalides :: Room
+parHotelDesInvalides =
+  Room
+    { rname = ParHotelDesInvalides,
+      desc = "You are at the Hôtel des Invalides.",
+      exits =
+        [ (N, ParPlaceDeLaConcorde),
+          (S, ParMontparnasseTower),
+          (W, ParEiffelTower)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parEiffelTower :: Room
+parEiffelTower =
+  Room
+    { rname = ParEiffelTower,
+      desc = "You are in front of the Eiffel Tower.",
+      exits =
+        [ (N, ParArcDeTriomphe),
+          (E, ParHotelDesInvalides)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parPantheon :: Room
+parPantheon =
+  Room
+    { rname = ParPantheon,
+      desc = "You are in front of the Pantheon.",
+      exits =
+        [ (N, ParSainteChapelle)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parMontparnasseTower :: Room
+parMontparnasseTower =
+  Room
+    { rname = ParMontparnasseTower,
+      desc = "You are in front of Montparnasse Tower.",
+      exits =
+        [ (N, ParHotelDesInvalides),
+          (S, ParCatacombs)
+        ],
+      objects =
+        [
+        ]
+    }
+
+parCatacombs :: Room
+parCatacombs =
+  Room
+    { rname = ParCatacombs,
+      desc = "You are in the catacombs.",
+      exits =
+        [ (N, ParMontparnasseTower)
+        ],
+      objects =
+        [ PraguePlaneTicket
+        ]
+    }
+
+-- PRG
+  
+prgPlane :: Room
+prgPlane =
+  Room
+    { rname = PrgPlane,
+      desc = "You are on an airplane.",
+      exits =
+        [ (S, PrgGate),
+          (PRGIST, IstGate)
+        ],
+      objects =
+        [
+        ]
+    }
+
+prgGate :: Room
+prgGate =
+  Room
+    { rname = PrgGate,
+      desc = "You are at the gate in the airport.",
+      exits =
+        [ (N, PrgPlane),
+          (S, PrgCustoms)
+        ],
+      objects =
+        [
+        ]
+    }
+
+prgCustoms :: Room
+prgCustoms =
+  Room
+    { rname = PrgCustoms,
+      desc = "You are going through Czech customs at the airport.",
+      exits =
+        [ (N, PrgGate),
+          (S, PrgSecurity)
+        ],
+      objects =
+        [
+        ]
+    }
+
+prgSecurity :: Room
+prgSecurity =
+  Room
+    { rname = PrgSecurity,
+      desc = "You are in airport security.",
+      exits =
+        [ (N, PrgCustoms),
+          (S, PrgLobby)
+        ],
+      objects =
+        [
+        ]
+    }
+
+prgLobby :: Room
+prgLobby =
+  Room
+    { rname = PrgLobby,
+      desc = "You are in the airport lobby.",
+      exits =
+        [ (N, PrgSecurity),
+          (S, PrgAirportStation)
+        ],
+      objects =
+        [
+        ]
+    }
+
+prgAirportStation :: Room
+prgAirportStation =
+  Room
+    { rname = PrgAirportStation,
+      desc = "You are in the airport train station.",
+      exits =
+        [ (N, PrgLobby),
+          (S, PrgTrain)
+        ],
+      objects =
+        [ PragueTrainTicket
+        ]
+    }
+
+prgTrain :: Room
+prgTrain =
+  Room
+    { rname = PrgTrain,
+      desc = "You are in a train.",
+      exits =
+        [ (N, PrgAirportStation),
+          (PragueDowntown, PraMainStation)
+        ],
+      objects =
+        [
+        ]
+    }
+
+-- Prague
+
+praMainStation :: Room
+praMainStation =
+  Room
+    { rname = PraMainStation,
+      desc = "You are in the main train station.",
+      exits =
+        [ (S, PraNationalMuseum),
+          (W, PraPowderGate),
+          (PRGreturn, PrgAirportStation)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praSpanishSynagogue :: Room
+praSpanishSynagogue =
+  Room
+    { rname = PraSpanishSynagogue,
+      desc = "You are in front of the Spanish Synagogue.",
+      exits =
+        [ (S, PraPowderGate),
+          (W, PraOldJewishCemetary)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praOldJewishCemetary :: Room
+praOldJewishCemetary =
+  Room
+    { rname = PraOldJewishCemetary,
+      desc = "You are in the old Jewish cemetary.",
+      exits =
+        [ (S, PraTynChurch),
+          (E, PraSpanishSynagogue)
+        ],
+      objects =
+        [ RedGarnet,
+          Spiderweb
+        ]
+    }
+
+praPowderGate :: Room
+praPowderGate =
+  Room
+    { rname = PraPowderGate,
+      desc = "You are in front of Powder Gate.",
+      exits =
+        [ (N, PraSpanishSynagogue),
+          (E, PraMainStation),
+          (W, PraTynChurch)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praTynChurch :: Room
+praTynChurch =
+  Room
+    { rname = PraTynChurch,
+      desc = "You are in front of Týn Church.",
+      exits =
+        [ (N, PraOldJewishCemetary),
+          (S, PraAstronomicalClock),
+          (E, PraPowderGate),
+          (W, PraHouseOfArts)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praHouseOfArts :: Room
+praHouseOfArts =
+  Room
+    { rname = PraHouseOfArts,
+      desc = "You are in front of the house of arts.",
+      exits =
+        [ (E, PraTynChurch)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praNationalMuseum :: Room
+praNationalMuseum =
+  Room
+    { rname = PraNationalMuseum,
+      desc = "You are in front of the national museum.",
+      exits =
+        [ (N, PraMainStation)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praAstronomicalClock :: Room
+praAstronomicalClock =
+  Room
+    { rname = PraAstronomicalClock,
+      desc = "You are in front of the astronomical clock.",
+      exits =
+        [ (N, PraTynChurch),
+          (S, PraNationalTheatre),
+          (W, PraCharlesBridge)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praCharlesBridge :: Room
+praCharlesBridge =
+  Room
+    { rname = PraCharlesBridge,
+      desc = "You are on Charles Bridge.",
+      exits =
+        [ (E, PraAstronomicalClock),
+          (W, PraChurchOfStNicholas)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praChurchOfStNicholas :: Room
+praChurchOfStNicholas =
+  Room
+    { rname = PraChurchOfStNicholas,
+      desc = "You are in front of the Church of St Nicholas.",
+      exits =
+        [ (S, PraLennonWall),
+          (E, PraCharlesBridge),
+          (W, PraPragueCastle)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praPragueCastle :: Room
+praPragueCastle =
+  Room
+    { rname = PraPragueCastle,
+      desc = "You are in front of Prague Castle.",
+      exits =
+        [ (S, PraPetrinTower),
+          (E, PraChurchOfStNicholas)
+        ],
+      objects =
+        [ Stick
+        ]
+    }
+
+praNationalTheatre :: Room
+praNationalTheatre =
+  Room
+    { rname = PraNationalTheatre,
+      desc = "You are in front of the national theatre.",
+      exits =
+        [ (N, PraAstronomicalClock),
+          (S, PraDancingHouse)
+        ],
+      objects =
+        [ Flyer
+        ]
+    }
+
+praLennonWall :: Room
+praLennonWall =
+  Room
+    { rname = PraLennonWall,
+      desc = "You are in front of Lennon Wall.",
+      exits =
+        [ (N, PraChurchOfStNicholas),
+          (W, PraPetrinTower)
+        ],
+      objects =
+        [
+        ]
+    }
+
+praPetrinTower :: Room
+praPetrinTower =
+  Room
+    { rname = PraPetrinTower,
+      desc = "You are in front of Petřín Tower.",
+      exits =
+        [ (N, PraPragueCastle),
+          (E, PraLennonWall),
+          (W, PraStrahovMonastery)
+        ],
+      objects =
+        [ PicnicBlanket,
+          PicnicBasket,
+          Apple,
+          Orange,
+          Banana,
+          RoastBeefSandwich
+        ]
+    }
+
+praStrahovMonastery :: Room
+praStrahovMonastery =
+  Room
+    { rname = PraStrahovMonastery,
+      desc = "You are in front of Strahov Monastery.",
+      exits =
+        [ (E, PraPetrinTower)
+        ],
+      objects =
+        [ IstanbulPlaneTicket
+        ]
+    }
+
+praDancingHouse :: Room
+praDancingHouse =
+  Room
+    { rname = PraDancingHouse,
+      desc = "You are in front of dancing house.",
+      exits =
+        [ (N, PraNationalTheatre)
+        ],
+      objects =
+        [ PragueReturnTrainTicket
+        ]
+    }
+
+-- IST
+
+istPlane :: Room
+istPlane =
+  Room
+    { rname = IstPlane,
+      desc = "You are on an airplane.",
+      exits =
+        [ (N, IstGate),
+          (ISTORD, OrdGate)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istGate :: Room
+istGate =
+  Room
+    { rname = IstGate,
+      desc = "You are at the gate in the airport.",
+      exits =
+        [ (N, IstCustoms),
+          (S, IstPlane)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istCustoms :: Room
+istCustoms =
+  Room
+    { rname = IstCustoms,
+      desc = "You are going through Turkish customs at the airport.",
+      exits =
+        [ (N, IstSecurity),
+          (S, IstGate)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istSecurity :: Room
+istSecurity =
+  Room
+    { rname = IstSecurity,
+      desc = "You are in airport security.",
+      exits =
+        [ (N, IstLobby),
+          (S, IstCustoms)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istLobby :: Room
+istLobby =
+  Room
+    { rname = IstLobby,
+      desc = "You are in the airport lobby.",
+      exits =
+        [ (N, IstLoadingZone),
+          (S, IstSecurity)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istLoadingZone :: Room
+istLoadingZone =
+  Room
+    { rname = IstLoadingZone,
+      desc = "You are in the loading zone outside the airport.",
+      exits =
+        [ (N, IstTaxi),
+          (S, IstLobby)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istTaxi :: Room
+istTaxi =
+  Room
+    { rname = IstTaxi,
+      desc = "You are in front of a taxi.",
+      exits =
+        [ (S, IstLoadingZone),
+          (IstanbulDowntown, IstanbulTaxi)
+        ],
+      objects =
+        [
+        ]
+    }
+
+-- Istanbul
+
+istanbulTaxi :: Room
+istanbulTaxi =
+  Room
+    { rname = IstanbulTaxi,
+      desc = "You are in front of a taxi.",
+      exits =
+        [ (E, IstanbulGrandBazaar),
+          (ISTreturn, IstLoadingZone)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulSerpentineColumn :: Room
+istanbulSerpentineColumn =
+  Room
+    { rname = IstanbulSerpentineColumn,
+      desc = "You are in front of the Serpentine Column.",
+      exits =
+        [ (E, IstanbulHippodromeSquare)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulSpiceBazaar :: Room
+istanbulSpiceBazaar =
+  Room
+    { rname = IstanbulSpiceBazaar,
+      desc = "You are at the spice bazaar.",
+      exits =
+        [ (S, IstanbulGrandBazaar)
+        ],
+      objects =
+        [ Spices,
+          BlackTea
+        ]
+    }
+
+istanbulGrandBazaar :: Room
+istanbulGrandBazaar =
+  Room
+    { rname = IstanbulGrandBazaar,
+      desc = "You are at the Grand Bazaar.",
+      exits =
+        [ (N, IstanbulSpiceBazaar),
+          (S, IstanbulHippodromeSquare),
+          (W, IstanbulTaxi)
+        ],
+      objects =
+        [ TurkishDelight,
+          Rug
+        ]
+    }
+
+istanbulHippodromeSquare :: Room
+istanbulHippodromeSquare =
+  Room
+    { rname = IstanbulHippodromeSquare,
+      desc = "You are in Hippodrome Square.",
+      exits =
+        [ (N, IstanbulGrandBazaar),
+          (S, IstanbulObeliskOfTheodesius),
+          (E, IstanbulTurkishAndIslamicArtMuseum),
+          (W, IstanbulSerpentineColumn)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulObeliskOfTheodesius :: Room
+istanbulObeliskOfTheodesius =
+  Room
+    { rname = IstanbulObeliskOfTheodesius,
+      desc = "You are in front of the Obelisk of Theodesius.",
+      exits =
+        [ (N, IstanbulHippodromeSquare),
+          (E, IstanbulBlueMosque)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulIstiklalAvenue :: Room
+istanbulIstiklalAvenue =
+  Room
+    { rname = IstanbulIstiklalAvenue,
+      desc = "You are on İstiklal Avenue.",
+      exits =
+        [ (E, IstanbulTaksimSquare)
+        ],
+      objects =
+        [ GucciBag
+        ]
+    }
+
+istanbulTurkishAndIslamicArtMuseum :: Room
+istanbulTurkishAndIslamicArtMuseum =
+  Room
+    { rname = IstanbulTurkishAndIslamicArtMuseum,
+      desc = "You are in front of the Turkish and Islamic Art Museum.",
+      exits =
+        [ (S, IstanbulBlueMosque),
+          (E, IstanbulTopkapiPalace),
+          (W, IstanbulHippodromeSquare)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulBlueMosque :: Room
+istanbulBlueMosque =
+  Room
+    { rname = IstanbulBlueMosque,
+      desc = "You are in front of the Blue Mosque.",
+      exits =
+        [ (N, IstanbulTurkishAndIslamicArtMuseum),
+          (E, IstanbulHagiaSophia),
+          (W, IstanbulObeliskOfTheodesius)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulBogaziciUniversity :: Room
+istanbulBogaziciUniversity =
+  Room
+    { rname = IstanbulBogaziciUniversity,
+      desc = "You are at Boğaziçi University.",
+      exits =
+        [ (S, IstanbulTaksimSquare)
+        ],
+      objects =
+        [ ChicagoPlaneTicket
+        ]
+    }
+
+istanbulTaksimSquare :: Room
+istanbulTaksimSquare =
+  Room
+    { rname = IstanbulTaksimSquare,
+      desc = "You are in Taksim Square.",
+      exits =
+        [ (N, IstanbulBogaziciUniversity),
+          (S, IstanbulGalataTower),
+          (E, IstanbulOrtakoySquare),
+          (W, IstanbulIstiklalAvenue)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulGalataTower :: Room
+istanbulGalataTower =
+  Room
+    { rname = IstanbulGalataTower,
+      desc = "You are in front of Galata Tower.",
+      exits =
+        [ (N, IstanbulTaksimSquare),
+          (S, IstanbulTopkapiPalace),
+          (E, IstanbulDolmabahcePalace)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulTopkapiPalace :: Room
+istanbulTopkapiPalace =
+  Room
+    { rname = IstanbulTopkapiPalace,
+      desc = "You are in front of Topkapı Palace.",
+      exits =
+        [ (N, IstanbulGalataTower),
+          (S, IstanbulHagiaSophia),
+          (W, IstanbulTurkishAndIslamicArtMuseum)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulHagiaSophia :: Room
+istanbulHagiaSophia =
+  Room
+    { rname = IstanbulHagiaSophia,
+      desc = "You are in front of the Hagia Sophia.",
+      exits =
+        [ (N, IstanbulTopkapiPalace),
+          (W, IstanbulBlueMosque)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulOrtakoySquare :: Room
+istanbulOrtakoySquare =
+  Room
+    { rname = IstanbulOrtakoySquare,
+      desc = "You are in Ortaköy Square.",
+      exits =
+        [ (S, IstanbulDolmabahcePalace),
+          (W, IstanbulTaksimSquare)
+        ],
+      objects =
+        [
+        ]
+    }
+
+istanbulDolmabahcePalace :: Room
+istanbulDolmabahcePalace =
+  Room
+    { rname = IstanbulDolmabahcePalace,
+      desc = "You are in front of the Dolmabahçe Palace.",
+      exits =
+        [ (N, IstanbulOrtakoySquare),
+          (W, IstanbulGalataTower)
+        ],
+      objects =
+        [
+        ]
+    }
+
+----------------------------------
+-- End list of predefined Rooms --
+----------------------------------
 
 -- Room Names
 roomNames :: [RoomName]
@@ -1491,7 +2665,88 @@ rooms =
     amsterdamRijksmuseum,
     amsterdamVondelpark,
     amsterdamHeinekenExperience,
-    amsterdamVanGoghMuseum
+    amsterdamVanGoghMuseum,
+
+    -- CDG
+    cdgPlane,
+    cdgGate,
+    cdgCustoms,
+    cdgSecurity,
+    cdgLobby,
+    cdgAirportStation,
+    cdgTrain,
+
+    -- Paris
+    parGareDuNord,
+    parSacreCoeur,
+    parMoulinRouge,
+    parPalaisGarnier,
+    parPalaisRoyal,
+    parLouvre,
+    parPlaceDeLaConcorde,
+    parArcDeTriomphe,
+    parPlaceDesVosges,
+    parNotreDame,
+    parSainteChapelle,
+    parHotelDesInvalides,
+    parEiffelTower,
+    parPantheon,
+    parMontparnasseTower,
+    parCatacombs,
+
+    -- PRG
+    prgPlane,
+    prgGate,
+    prgCustoms,
+    prgSecurity,
+    prgLobby,
+    prgAirportStation,
+    prgTrain,
+
+    -- Prague
+    praMainStation,
+    praSpanishSynagogue,
+    praOldJewishCemetary,
+    praPowderGate,
+    praTynChurch,
+    praHouseOfArts,
+    praNationalMuseum,
+    praAstronomicalClock,
+    praCharlesBridge,
+    praChurchOfStNicholas,
+    praPragueCastle,
+    praNationalTheatre,
+    praLennonWall,
+    praPetrinTower,
+    praStrahovMonastery,
+    praDancingHouse,
+
+    -- IST
+    istPlane,
+    istGate,
+    istCustoms,
+    istSecurity,
+    istLobby,
+    istLoadingZone,
+    istTaxi,
+
+    -- Istanbul
+    istanbulTaxi,
+    istanbulSerpentineColumn,
+    istanbulSpiceBazaar,
+    istanbulGrandBazaar,
+    istanbulHippodromeSquare,
+    istanbulObeliskOfTheodesius,
+    istanbulIstiklalAvenue,
+    istanbulTurkishAndIslamicArtMuseum,
+    istanbulBlueMosque,
+    istanbulBogaziciUniversity,
+    istanbulTaksimSquare,
+    istanbulGalataTower,
+    istanbulTopkapiPalace,
+    istanbulHagiaSophia,
+    istanbulOrtakoySquare,
+    istanbulDolmabahcePalace
   ]
 
 addItem :: ItemName -> Room -> Room

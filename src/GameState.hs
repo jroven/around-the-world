@@ -1,7 +1,5 @@
 module GameState where
 
-import Data.List
-import Data.Maybe
 import Control.Exception
 import qualified Data.Map as M
 
@@ -201,15 +199,61 @@ moveMessage d =
       LondonDowntown -> "You take the London Underground downtown."
       LHRreturn -> "You take the London Underground back to the airport."
       LHRAMS -> "You fly to Amsterdam."
+      AmsterdamDowntown -> "You take the train downtown."
+      AMSreturn -> "You take the train back to the airport."
+      AMSCDG -> "You fly to Paris."
+      ParisDowntown -> "You take the train downtown."
+      CDGreturn -> "You take the train back to the airport."
+      CDGPRG -> "You fly to Prague."
+      PragueDowntown -> "You take the train downtown."
+      PRGreturn -> "You take the train back to the airport."
+      PRGIST -> "You fly to Istanbul."
+      IstanbulDowntown -> "You take a taxi downtown."
+      ISTreturn -> "You take a taxi back to the airport."
+      ISTORD -> "You fly back to Chicago."
       _ -> ""
+
+useItems :: Direction -> GameState -> GameState
+useItems d st =
+  case d of
+    LHRfly -> st
+      { player = Player.removeItem LondonPlaneTicket $ player st }
+    LondonDowntown -> st
+      { player = Player.removeItem LondonTubeTicket $ player st }
+    LHRreturn -> st
+      { player = Player.removeItem LondonReturnTubeTicket $ player st }
+    LHRAMS -> st
+      { player = Player.removeItem AmsterdamPlaneTicket $ player st }
+    AmsterdamDowntown -> st
+      { player = Player.removeItem AmsterdamTrainTicket $ player st }
+    AMSreturn -> st
+      { player = Player.removeItem AmsterdamReturnTrainTicket $ player st }
+    AMSCDG -> st
+      { player = Player.removeItem ParisPlaneTicket $ player st }
+    ParisDowntown -> st
+      { player = Player.removeItem ParisTrainTicket $ player st }
+    CDGreturn -> st
+      { player = Player.removeItem ParisReturnTrainTicket $ player st }
+    CDGPRG -> st
+      { player = Player.removeItem PraguePlaneTicket $ player st }
+    PragueDowntown -> st
+      { player = Player.removeItem PragueTrainTicket $ player st }
+    PRGreturn -> st
+      { player = Player.removeItem PragueReturnTrainTicket $ player st }
+    PRGIST -> st
+      { player = Player.removeItem IstanbulPlaneTicket $ player st }
+    HydePark -> st
+      { player = Player.removeItem ChicagoPlaneTicket $ player st }
+    _ -> st
+
 
 move :: Direction -> GameState -> GameState
 move d st =
   case destinationName d (currentRoom st) of
-    Just r ->
+    Just r -> do
       setMessage
-      (moveMessage d)
-      st { player = (player st) { location = r } }
+        (moveMessage d)
+        (useItems d $ st { player = (player st) { location = r } })
     Nothing ->
       setMessage
       "There is no exit in that direction."
@@ -218,7 +262,23 @@ move d st =
 haveWonGame :: GameState -> Bool
 haveWonGame st =
   let p = player st
-  in location p == Backyard && elem Homework (inventory p)
+  in location p == Bedroom
+     &&
+     elem TurkishDelight (inventory p)
+     &&
+     elem TeaSet (inventory p)
+     &&
+     elem Stroopwafel (inventory p)
+     &&
+     elem Croissant (inventory p)
+     &&
+     elem RedGarnet (inventory p)
+
+getNPCByName :: String -> GameState -> Maybe NPC
+getNPCByName n st = getNPCByNameHelper n (npcs st) where
+  getNPCByNameHelper _ [] = Nothing
+  getNPCByNameHelper n (npc : npcs) =
+    if n == name npc then Just npc else getNPCByNameHelper n npcs
 
 npcMove :: NPC -> Direction -> GameState -> GameState
 npcMove npc d st =
@@ -226,8 +286,23 @@ npcMove npc d st =
     Just r ->
       setMessage
       ""
-      st { npcs = (npc { npcLocation = r } ) : delete npc (npcs st) }
+      st { npcs = (npc { npcLocation = r } ) :
+        deleteNPCByName (name npc) (npcs st) }
     Nothing ->
       setMessage
       ""
       st
+
+replaceNPClooks :: String -> Int -> GameState -> GameState
+replaceNPClooks name lks st =
+  case getNPCByName name st of
+    Just npc -> st { npcs = npc { looks = lks } :
+      deleteNPCByName name (npcs st) }
+    _ -> st
+
+incrementNPClooks :: String -> GameState -> GameState
+incrementNPClooks name st =
+  case getNPCByName name st of
+    Just npc -> st { npcs = npc { looks = looks npc + 1 } :
+      deleteNPCByName name (npcs st) }
+    _ -> st

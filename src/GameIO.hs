@@ -6,7 +6,6 @@ import System.Exit
 import System.IO
 
 import GameState
-import Player
 import Room
 import Command
 import Item
@@ -113,7 +112,7 @@ actionOverListHelper state action xs = do
 
 finishGame :: GameIO ()
 finishGame = do
-    lift $ putStrLn "You successfully brought the jug into the yard."
+    lift $ putStrLn "You successfully brought back all your souvenirs."
     lift $ putStrLn "Congratulations! You win!"
     lift exitSuccess
 
@@ -134,6 +133,8 @@ syntaxError = do
 opening :: GameIO ()
 opening = do
     lift $ putStrLn "Welcome to Functional Adventure!"
+    lift $ putStrLn ("Travel the world to find the best souvenirs, then " ++
+                    "bring them back to your collection in your bedroom.")
 
 performCommand :: Command -> GameIO ()
 performCommand com = do
@@ -143,6 +144,7 @@ performCommand com = do
             printDescription
             printObjects
             printExits
+            checkNPCs
         Move d -> do
             state <- pure (move d state)
             case message state of
@@ -157,13 +159,17 @@ performCommand com = do
         Exit -> do
             exit
     checkChangeMap
-    removeUsedObjects
 
 performConjunction :: Conjunction -> GameIO ()
 performConjunction conj = do
     case conj of
         [] -> do
-            npcRandomMove csprof
+            st <- get
+            case getNPCByName "CS Professor" st of
+                Just csprof -> do
+                    npcItemCheck csprof Homework csprofGive
+                    npcRandomMove csprof
+                Nothing -> lift $ pure ()
         (c : cs) -> do
             performCommand c
             performConjunction cs
@@ -182,37 +188,128 @@ repl = do
     parseConjunction str
     checkGameOver
 
-removeUsedObjects :: GameIO ()
-removeUsedObjects = do
-    state <- get
-    when (currentRoom state == lhrGate
-          &&
-          elem LondonPlaneTicket (currentInventory state))
-            (lift $ pure ()) -- FIX THIS TO ACTUALLY MAKE IT REMOVE TICKET
-
 checkChangeMap :: GameIO ()
 checkChangeMap = do
     state <- get
+
     when (currentRoom state == yardTaxi
           &&
           elem LondonPlaneTicket (currentInventory state))
             (performCommand $ Move ORD)
+
     when (currentRoom state == ordPlane
           &&
           elem LondonPlaneTicket (currentInventory state))
             (performCommand $ Move LHRfly)
+
     when (currentRoom state == lhrTrain
           &&
           elem LondonTubeTicket (currentInventory state))
             (performCommand $ Move LondonDowntown)
+
     when (currentRoom state == lonWestminsterTubeStation
           &&
-          elem LondonReturnTubeTicket (currentInventory state))
+          elem LondonReturnTubeTicket (currentInventory state)
+          &&
+          elem AmsterdamPlaneTicket (currentInventory state)
+          &&
+          elem TeaSet (currentInventory state))
             (performCommand $ Move LHRreturn)
+
     when (currentRoom state == lhrPlane
           &&
           elem AmsterdamPlaneTicket (currentInventory state))
             (performCommand $ Move LHRAMS)
+
+    when (currentRoom state == amsTrain
+          &&
+          elem AmsterdamTrainTicket (currentInventory state))
+            (performCommand $ Move AmsterdamDowntown)
+
+    when (currentRoom state == amsterdamCentraalStation
+          &&
+          elem AmsterdamReturnTrainTicket (currentInventory state)
+          &&
+          elem ParisPlaneTicket (currentInventory state)
+          &&
+          elem Stroopwafel (currentInventory state))
+            (performCommand $ Move AMSreturn)
+
+    when (currentRoom state == amsPlane
+          &&
+          elem ParisPlaneTicket (currentInventory state))
+            (performCommand $ Move AMSCDG)
+
+    when (currentRoom state == cdgTrain
+          &&
+          elem ParisTrainTicket (currentInventory state))
+            (performCommand $ Move ParisDowntown)
+
+    when (currentRoom state == parGareDuNord
+          &&
+          elem ParisReturnTrainTicket (currentInventory state)
+          &&
+          elem PraguePlaneTicket (currentInventory state)
+          &&
+          elem Croissant (currentInventory state))
+            (performCommand $ Move CDGreturn)
+
+    when (currentRoom state == cdgPlane
+          &&
+          elem PraguePlaneTicket (currentInventory state))
+            (performCommand $ Move CDGPRG)
+
+    when (currentRoom state == prgTrain
+          &&
+          elem PragueTrainTicket (currentInventory state))
+            (performCommand $ Move PragueDowntown)
+
+    when (currentRoom state == praMainStation
+          &&
+          elem PragueReturnTrainTicket (currentInventory state)
+          &&
+          elem IstanbulPlaneTicket (currentInventory state)
+          &&
+          elem RedGarnet (currentInventory state))
+            (performCommand $ Move PRGreturn)
+
+    when (currentRoom state == prgPlane
+          &&
+          elem IstanbulPlaneTicket (currentInventory state))
+            (performCommand $ Move PRGIST)
+    
+    when (currentRoom state == istTaxi)
+        (performCommand $ Move IstanbulDowntown)
+    
+    when (currentRoom state == istanbulTaxi
+          &&
+          elem TurkishDelight (currentInventory state)
+          &&
+          elem ChicagoPlaneTicket (currentInventory state))
+            (performCommand $ Move ISTreturn)
+
+    when (currentRoom state == istPlane
+          &&
+          elem ChicagoPlaneTicket (currentInventory state))
+            (performCommand $ Move ISTORD)
+    
+    when (currentRoom state == ordLoadingZone
+          &&
+          elem TurkishDelight (currentInventory state))
+            (performCommand $ Move HydePark)
+
+checkNPCs :: GameIO ()
+checkNPCs = do
+    state <- get
+    case getNPCByName "CS Professor" state of
+        Just csprof -> do
+            when (npcLocationCheck csprof state)
+                (lift $ putStrLn $ description csprof)
+            when (npcLocationCheck csprof state && looks csprof == 0)
+                (lift $ putStrLn $ hint csprof)
+            newState <- pure $ incrementNPClooks "CS Professor" state
+            put newState
+        Nothing -> lift $ pure ()
 
 choose :: [a] -> IO a
 choose xs = do
@@ -222,16 +319,35 @@ choose xs = do
 npcRandomMove :: NPC -> GameIO ()
 npcRandomMove npc = do
     st <- get
-    exit <- lift $ choose $ exits $ getRoom (npcLocation npc) st
-    st <- pure $ npcMove npc (fst exit) st
-    pure ()
+    if npcLocationCheck npc st then lift (pure ()) else do
+        exit <- lift $ choose $ normalExits $ getRoom (npcLocation npc) st
+        newSt <- pure $ replaceNPClooks (name npc) (0)
+            (npcMove npc (fst exit) st)
+        put newSt
 
 npcItemCheck :: NPC -> ItemName -> GameIO () -> GameIO ()
 npcItemCheck npc i action = do
     st <- get
     if npcLocationCheck npc st && elem i (objects $ currentRoom st)
-        then action
-        else lift $ putStrLn "not there (TEST)"
+        then do
+            action
+        else lift $ pure ()
+
+csprofGive :: GameIO ()
+csprofGive = do
+    st <- get
+    put st
+      { gmap =
+          setRoomMap
+            (rname $ currentRoom st)
+            (Room.removeItem Homework
+                (Room.addItem LondonPlaneTicket $ currentRoom st))
+            (gmap st)
+      }
+    lift $ putStrLn "The CS professor sees your homework and takes it."
+    lift $ putStrLn ("The CS professor says: \"Excellent work! " ++
+                    "Here is a token of my appreciation.\"")
+    lift $ putStrLn "The CS professor drops something for you."
 
 npcLocationCheck :: NPC -> GameState -> Bool
 npcLocationCheck npc st = currentRoom st == getRoom (npcLocation npc) st
