@@ -1,0 +1,113 @@
+#+Author: Matt Teichman
+#+Title: Final Project Grade: Jonathan Roven
+
+* Grade
+** Final grade in the class: A
+** Final project grade: 106%
+
+Wow.  Jaw-droppingly great.  Brings back fond memories of Paris,
+Amsterdam, and, yes, Chicago!  I don't think I've ever had anyone
+attempt anything at quite this scale before.
+
+Thank you so much for taking the class.  The work you did throughout
+the quarter was superb, and I really enjoyed our conversations in
+class and during office hours.  Stay in touch!
+
+* Grade Components:
+1. User Feel: 10/10
+   + Wow, to call this game map extensive would be the understatement
+     of the year.
+   + Never seen anything like this before; your Room module is ~2800
+     LOC!
+   + Did you draw this out before coding it up?
+   + LOL @ the original game map existing as a tiny subset of this
+     vastness.
+   + Wow, I wonder how the heck you would catch the CS professor
+     without that one command.  He seems like he would require some
+     chasing.
+   + You know what would be a cool feature for a game with a map this
+     big?  Like, the ability to remember everywhere you've been and
+     walk straight there by typing the name.  A bit like the magic map
+     in King's Quest 3.
+   + Even more fun would be for the game to compute the path to that
+     location and type in the north/south/etc. commands for you, maybe
+     using Dijkstra's Algorithm.
+     + Too much code for a class final project, but would definitely
+       be a fun hobby project.
+   + Man, there sure are a lot of free train tickets lying around on
+     the floor.
+   + Have you lived in these places?  I've lived in Paris and
+     Amsterdam, so the scenery in those two locations was familiar to
+     me.  Used to skate in Vondelpark.
+     + Speaking of which, I have a feature request.  How about
+       inserting Pannenkoekenhuis Upstairs into the Amsterdam map?  ;)
+     + Second best hot chocolate I've ever had is in the Schiphol
+       Starbucks, of all places.
+     + #1 is of course Mindy's Hot Chocolate in Chicago.
+   + Ha, a friend of mine went to Boğaziçi University.
+   + Incredible.  I don't know how I won, even with the walkthrough.
+     I think I just ran a virtual marathon.
+2. Code Style: 10/10
+   + Really cool to see you do the automatic transporation using extra
+     directions.
+   + I think if I were to have done this in whatever way first popped
+     into my head, I would have created one game map with disconnected
+     regions, then installed listeners at the airports/train stations
+     in each of these disconnected regions to await the arrival of the
+     player with the right items.
+   + But in a way, this is cooler; it's leveraging the fact that it's
+     up to you how you want to define space, orientation, etc. via
+     your datatype.
+   + The code throughout this project is super elegant.
+   + You might consider moving some of the stuff from =GameIO= that's
+     just transitioning the game state into the =GameState= module.
+   + For example, you could rewrite =csProfGive= like this:
+     #+begin_src haskell
+       csprofGive' :: GameState -> GameState
+       csprofGive' st =
+         let newState = st { gmap =
+                             setRoomMap
+                             (rname $ currentRoom st)
+                             (Room.removeItem Homework
+                              (Room.addItem LondonPlaneTicket $ currentRoom st))
+                             (gmap st)
+                           }
+             msg = intercalate "\n" [ "The CS professor sees your homework and takes it."
+                                    , "The CS professor says: \"Excellent work! \
+                                      \Here is a token of my appreciation.\""
+                                    , "The CS professor drops something for you." ]
+         in setMessage msg newState
+     #+end_src
+   + That way, you can reserve stuff that needs to do meaningful IO,
+     like randomness, restarting the game, printing, etc. for the
+     =GameIO= module.
+   + =checkChangeMap= at first looks like a borderline case, but since
+     it's automatically zapping the player over to the next location
+     with a =Move= command, I think it's actually a great fit for
+     =GameIO=.
+   + Anyway, you can take a look at what you've got and think about
+     whether there are other opportunities to move some of the game
+     logic from =GameIO= over into =GameState=.
+   + In general, I think it's really nice to set your applications up
+     up in layers, where each layer is dedicated to a specific type of
+     thing, and every value defined in any given layer has as specific
+     a job as possible.  (Whether or not you're writing an adventure
+     game.)  That pays big dividends when it comes time to debug.
+3. Bug-Free Performance: 10/10
+   + Totally bug-free, as far as I could tell.
+4. Required Minimal Features: 10/10
+   + Minimal core features firing on all cylinders.
+5. NPC Feature: 10/10
+   + Works great.
+   + Good thing you put the NPC at the beginning!  Ha.
+6. Feature of Your Choice: 13/10
+   + Bonus points for such an extensive game map.
+7. Documentation: 12/10
+   + Bonus points for how clear and thorough the doc is!
+   + I like your approach to multiple levels.
+   + Explanation of why one of the record fields in the game state is
+     a list of NPCs is appreciated.
+   + Super detailed walkthrough; thank you!
+   + Frankly, I would have been lost without it!  ;)
+   + I'd be really curious to see the bugs you were getting when you
+     had multiple NPCs; would be fun to think about workarounds.
