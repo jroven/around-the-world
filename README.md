@@ -1,26 +1,20 @@
-Jonathan Roven
-12/7/23
-Acknowledgements: just me
-
-
-
 -- CODE DESCRIPTION --
 
-The goal of the game is to travel the world, collect souvenirs from each destination, and bring them back home. The new feature that I implemented was having multiple maps that the player can move between, triggered by holding certain items in the inventory.
+The goal of the game is to travel the world, collect souvenirs from each destination, and bring them back home.
 
-The main change I made to implement the multiple maps was creating more Directions. I added an Exit to each room that transports the player to a new map, with a unique Direction for each transportation. These new exits are accounted for in the same move function, but they are not able to be moved through normally with the command line. Instead, they are triggered by the presence of certain items in the player's inventory, which automatically calls the move function when the player is in the room and the conditions are satisfied.
+There are several available actions. By typing "look", the player can see the surroundings. By typing "inventory", the player can view their current inventory. Items in the current room can be taken by typing "take" followed by the name of the item. Items in the player's inventory can be dropped by typing "drop" followed by the name of the item. The player can move through available exits by typing "move" followed by one of the cardinal directions.
+
+The newest feature is having multiple maps that the player can move between, triggered by holding certain items in the inventory. The main change I made to implement the multiple maps was creating more Directions. I added an Exit to each room that transports the player to a new map, with a unique Direction for each transportation. These new exits are accounted for in the same move function, but they are not able to be moved through normally with the command line. Instead, they are triggered by the presence of certain items in the player's inventory, which automatically calls the move function when the player is in the room and the conditions are satisfied.
 
 One other change that was necessitated by this implementation was the move messages. Before, every movement would set the message to "You go ____", where the blank is the show instance of thd direction. However, I wanted more specific move messages for transporting between maps to set them apart from normal movement, so I created the moveMessage function in GameState.hs that maps a direction to a specific message.
 
-The other change was the NPC implementation. I created an NPC module in NPC.hs defining the NPC datatype, which contains a name, description, hint, location, and an Int called looks which tracks how many times the NPC has been in the room with the look command being called. The NPC will say its hint if looks is equal to 0, otherwise only the description will be read. The one NPC in the game is also defined in this module.
-
-I also edited the GameState datatype to include the NPCs present in the game as a list of NPCs. I originally intended in adding multiple NPCs, but the implementation caused a lot of bugs and I ended up focusing my efforts elsewhere.
+Another new change was the NPC implementation. I created an NPC module in NPC.hs defining the NPC datatype, which contains a name, description, hint, location, and an Int called looks which tracks how many times the NPC has been in the room with the look command being called. The NPC will say its hint if looks is equal to 0, otherwise only the description will be read. The one NPC in the game is also defined in this module.
 
 
 
 -- WALKTHROUGH --
 
-The game starts in Hyde Park, with the player starting in the bedroom of their house. The first objective is to acquire a plane ticket. To do this, the player must find a CS professor and give the professor their homework. In exchange, the professor will drop a plane ticket to London. The professor starts at Crerar Quad but moves randomly every time a conjunction is entered. To get to the CS professor in one conjunction as to prevent any movement, type the following:
+The game starts in Hyde Park, Chicago, with the player starting in the bedroom of their house. The first objective is to acquire a plane ticket. To do this, the player must find a CS professor and give the professor their homework. In exchange, the professor will drop a plane ticket to London. The professor starts at Crerar Quad but moves randomly every time a conjunction is entered. To get to the CS professor in one conjunction as to prevent any movement, type the following:
 
 south and south and south and south and south and south and south and south and west and west and west and west and south
 
